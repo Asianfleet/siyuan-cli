@@ -71,7 +71,7 @@ siyuan serve --workspace /siyuan/workspace --port 6806 --accessAuthCode <code>
 
 | Flag | 说明 |
 |---|---|
-| `--dry-run` | 预览命令会做什么，不实际修改数据适合先验证写入、删除、导入、回滚、同步等命令 |
+| `--dry-run` | 预览命令会做什么，不实际修改数据；它通常只打印计划操作，不保证校验目标 ID、父块合法性或文件是否存在 |
 | `-h`, `--help` | 查看当前命令或子命令帮助skill 覆盖常用离线参考，但遇到版本不一致时以本地命令帮助为准 |
 
 ### Common Options
@@ -101,7 +101,7 @@ siyuan serve --workspace /siyuan/workspace --port 6806 --accessAuthCode <code>
 ## Notes
 
 - 默认使用 CLI 的表格输出；只有当任务需要结构化解析、批处理或把结果继续交给程序处理时，才加 `-f json`。
-- 修改类命令包括但不限于 `notebook create/remove/rename`、`document create/remove/rename/move/duplicate`、`block insert/update/delete/move`、`attr set`、`import`、`repo checkout`、`history rollback/clear`、`sync push/pull`、`file write/delete/rename/copy`先用 `--dry-run`。
+- 修改类命令包括但不限于 `notebook create/remove/rename`、`document create/remove/rename/move/duplicate`、`block insert/update/delete/move`、`attr set`、`import`、`repo checkout`、`history rollback/clear`、`sync push/pull`、`file write/delete/rename/copy`，先用 `--dry-run`；注意 `--dry-run` 通常只打印计划操作，不等同于完整校验目标 ID、父块合法性或文件是否存在。
 - 如果命令报 `appearance files not found`，说明 CLI 没有从正确的 SiYuan 工作目录启动，改用安装目录中的 kernel 二进制或设置正确的工作目录。
 - CLI 可直接访问 workspace 数据，不要求先启动 HTTP server。
 - 除 `workspace` 子命令外，大多数命令会初始化 workspace 和数据库；workspace 路径错误会导致命令失败或读到错误数据。
