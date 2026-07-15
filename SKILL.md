@@ -5,35 +5,27 @@ description: "Use this skill whenever the user wants to operate, inspect, query,
 
 # Siyuan CLI
 
-本手册基于 SiYuan `v3.7.2-alpha.2`。CLI 信息来自该版本 README 的 Command-line Interface 章节、`kernel/cli/cmd/*.go` 和根命令定义。
+本 Skill 基于 SiYuan `v3.7.2`。
 
-## Setup
+## Preconditions
 
-运行 CLI 前先检查：
-
-- 优先使用 `siyuan` 调用 CLI；如果 PATH 中没有 `siyuan`，定位安装目录下的 `resources/kernel/SiYuan-Kernel` 或 `SiYuan-Kernel.exe`。
-- 如果用户显式指定了工作空间路径，则使用用户指定的路径；否则，检查 `SIYUAN_WORKSPACE_PATH` 环境变量是否设置。如果已设置，使用环境变量指定的路径；否则应停下来，提示用户设置环境变量或显式指定路径。不要自己设置工作空间路径。
+- 检查 SiYuan 内核是否可从 PATH 调用。优先使用 `siyuan` 调用 CLI；如果 PATH 中没有可用命令，再定位安装目录下的 `resources/kernel/SiYuan-Kernel` 或 `SiYuan-Kernel.exe`。如果 PATH 和安装目录都无法定位内核，必须停下来向用户说明无法运行 CLI，并请用户提供安装目录或把内核加入 PATH。
+- 确定 workspace。用户显式指定工作空间时，必须使用该工作空间；用户没有指定，或说使用默认工作空间时，检查 `SIYUAN_WORKSPACE_PATH` 是否已设置。如果已设置，后续指令不需要带 `-w`，SiYuan 会自动使用该环境变量指定的 workspace。如果未设置，必须停下来提示用户显式指定 workspace 或设置 `SIYUAN_WORKSPACE_PATH`，绝对不能猜测 workspace 路径。
 
 ### CLI Script
 
-默认调用形式：
+用户显式指定 workspace 时的调用形式：
 
 ```powershell
 $workspace = "<workspace>"
 siyuan notebook list -w $workspace
 ```
 
-用环境变量指定 workspace：
+`SIYUAN_WORKSPACE_PATH` 已设置时的调用形式：
 
 ```powershell
 $env:SIYUAN_WORKSPACE_PATH = "<workspace>"
 siyuan search "keyword"
-```
-
-Docker 或手动启动 HTTP server 时使用 `serve`：
-
-```bash
-siyuan serve --workspace /siyuan/workspace --port 6806 --accessAuthCode <code>
 ```
 
 ### Commands
@@ -83,7 +75,7 @@ siyuan serve --workspace /siyuan/workspace --port 6806 --accessAuthCode <code>
 
 | Flag | 默认值 | 说明 |
 |---|---|---|
-| `-w`, `--workspace <path>` | 环境变量 `SIYUAN_WORKSPACE_PATH`，否则默认 workspace | 指定 SiYuan workspace 路径操作用户数据时应显式传入 |
+| `-w`, `--workspace <path>` | 环境变量 `SIYUAN_WORKSPACE_PATH` | 用户显式指定 workspace 时传入；如果用户未指定且环境变量未设置，停下来询问，不使用猜测的默认路径 |
 | `-f`, `--format <table\|json>` | `table` | 输出格式默认保留 `table`；只有任务需要结构化解析、批处理或程序消费时才使用 `json` |
 | `-v`, `--log-level <level>` | CLI 单次命令默认为 `warn` | 日志级别：`off`、`trace`、`debug`、`info`、`warn`、`error`、`fatal` |
 
@@ -107,6 +99,6 @@ siyuan serve --workspace /siyuan/workspace --port 6806 --accessAuthCode <code>
 - 修改类命令包括但不限于 `notebook create/remove/rename`、`document create/remove/rename/move/duplicate`、`block insert/update/delete/move`、`attr set`、`import`、`repo checkout`、`history rollback/clear`、`sync push/pull`、`file write/delete/rename/copy`，先用 `--dry-run`；注意 `--dry-run` 通常只打印计划操作，不等同于完整校验目标 ID、父块合法性或文件是否存在。
 - 如果命令报 `appearance files not found`，说明 CLI 没有从正确的 SiYuan 工作目录启动，改用安装目录中的 kernel 二进制或设置正确的工作目录。
 - CLI 可直接访问 workspace 数据，不要求先启动 HTTP server。
-- `help`、`system` 等看似只读的命令也会触发普通 CLI 初始化；默认 workspace 无效时需要显式传入 `-w <workspace>`。
+- `help`、`system` 等看似只读的命令也会触发普通 CLI 初始化；用户未指定 workspace 且 `SIYUAN_WORKSPACE_PATH` 未设置时，停下来询问。
 - 除 `workspace` 子命令外，大多数命令会初始化 workspace 和数据库；workspace 路径错误会导致命令失败或读到错误数据。
 - `file` 命令只能访问 workspace 内路径，源码会阻止路径逃逸。
