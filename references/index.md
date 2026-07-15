@@ -1,5 +1,7 @@
 # Siyuan CLI 参考索引
 
+本索引基于 SiYuan `v3.7.2`。按顶层命令跳转到对应详细页；每个详细页的 `## 子命令详述` 表格列出最小可调用语法、关键参数和副作用。
+
 | 分类 | 顶层命令 | 用途 |
 |---|---|---|
 | Notebooks & Documents | [`notebook`](notebook.md) | 管理笔记本 |
@@ -26,3 +28,5 @@
 | Server | [`serve`](serve.md) | 启动 kernel 服务 |
 | Workspace & System | [`workspace`](workspace.md) | 管理工作空间 |
 | Workspace & System | [`system`](system.md) | 查看系统信息 |
+| Workspace & System | [`completion`](completion.md) | 生成 shell 自动补全脚本 |
+| Workspace & System | [`help`](help.md) | 查看命令帮助 |

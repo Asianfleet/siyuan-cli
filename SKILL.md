@@ -5,7 +5,7 @@ description: "Use this skill whenever the user wants to operate, inspect, query,
 
 # Siyuan CLI
 
-本 Skill 基于 SiYuan `3.7.1`，CLI 信息来自 https://github.com/siyuan-note/siyuan/blob/master/README.md 的 Command-line Interface 章节以及 `kernel/cli/cmd/*.go` 和根命令定义。
+本手册基于 SiYuan `v3.7.2-alpha.2`。CLI 信息来自该版本 README 的 Command-line Interface 章节、`kernel/cli/cmd/*.go` 和根命令定义。
 
 ## Setup
 
@@ -49,7 +49,7 @@ siyuan serve --workspace /siyuan/workspace --port 6806 --accessAuthCode <code>
 | Metadata | `tag` | 管理标签 | `siyuan tag list -w <workspace>` |
 | Metadata | `bookmark` | 管理书签 | `siyuan bookmark list -w <workspace>` |
 | Metadata | `template` | 搜索、读取、渲染或创建模板片段 | `siyuan template search "" -w <workspace>` |
-| Queries | `search` | 全文、查询语法、SQL、正则或语义搜索 | `siyuan search "keyword" -w <workspace>` |
+| Queries | `search` | 全文、查询语法、SQL、正则、语义或资源文件内容搜索 | `siyuan search "keyword" -w <workspace>` |
 | Queries | `sql` | 执行 SQL 查询 | `siyuan sql "select * from blocks limit 5" -w <workspace>` |
 | References | `ref` | 查询反链、提及并刷新引用 | `siyuan ref backlinks --id <block-id> -w <workspace>` |
 | Import/Export | `export` | 导出 Markdown、HTML、Word、`.sy.zip` 或完整数据备份 | `siyuan export md --id <document-id> -w <workspace>` |
@@ -63,7 +63,9 @@ siyuan serve --workspace /siyuan/workspace --port 6806 --accessAuthCode <code>
 | Database | `database` | 管理数据库，也就是属性视图 | `siyuan database search "<name>" -w <workspace>` |
 | Server | `serve` | 启动 kernel HTTP server | `siyuan serve --workspace <workspace> --port 6806` |
 | Workspace & System | `workspace` | 列出或检查 SiYuan workspace | `siyuan workspace info -w <workspace>` |
-| Workspace & System | `system` | 输出系统信息 | `siyuan system current-time` |
+| Workspace & System | `system` | 输出系统信息 | `siyuan system current-time -w <workspace>` |
+| Workspace & System | `completion` | 生成 shell 自动补全脚本 | `siyuan completion powershell -w <workspace>` |
+| Workspace & System | `help` | 查看命令帮助 | `siyuan help block -w <workspace>` |
 
 ### Global Flags
 
@@ -72,7 +74,8 @@ siyuan serve --workspace /siyuan/workspace --port 6806 --accessAuthCode <code>
 | Flag | 说明 |
 |---|---|
 | `--dry-run` | 预览命令会做什么，不实际修改数据；它通常只打印计划操作，不保证校验目标 ID、父块合法性或文件是否存在 |
-| `-h`, `--help` | 查看当前命令或子命令帮助skill 覆盖常用离线参考，但遇到版本不一致时以本地命令帮助为准 |
+| `-h`, `--help` | 查看当前命令或子命令帮助；本 Skill 覆盖常用离线参考，但遇到版本不一致时以目标版本源码为准 |
+| `--version` | 输出 CLI 版本 |
 
 ### Common Options
 
@@ -104,5 +107,6 @@ siyuan serve --workspace /siyuan/workspace --port 6806 --accessAuthCode <code>
 - 修改类命令包括但不限于 `notebook create/remove/rename`、`document create/remove/rename/move/duplicate`、`block insert/update/delete/move`、`attr set`、`import`、`repo checkout`、`history rollback/clear`、`sync push/pull`、`file write/delete/rename/copy`，先用 `--dry-run`；注意 `--dry-run` 通常只打印计划操作，不等同于完整校验目标 ID、父块合法性或文件是否存在。
 - 如果命令报 `appearance files not found`，说明 CLI 没有从正确的 SiYuan 工作目录启动，改用安装目录中的 kernel 二进制或设置正确的工作目录。
 - CLI 可直接访问 workspace 数据，不要求先启动 HTTP server。
+- `help`、`system` 等看似只读的命令也会触发普通 CLI 初始化；默认 workspace 无效时需要显式传入 `-w <workspace>`。
 - 除 `workspace` 子命令外，大多数命令会初始化 workspace 和数据库；workspace 路径错误会导致命令失败或读到错误数据。
 - `file` 命令只能访问 workspace 内路径，源码会阻止路径逃逸。
