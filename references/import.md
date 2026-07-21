@@ -17,6 +17,5 @@
 
 ## 备注
 
-- 本页基于 SiYuan v3.7.2-alpha.2 的 `kernel/cli/cmd/import.go`。
 - `md` 和 `sy` 都要求目标笔记本 ID；未提供 `--path` 或 `--hpath` 时按默认目标路径导入。
 - `--file` 会先解析为本机绝对路径，因此相对路径按当前 shell 工作目录解释。

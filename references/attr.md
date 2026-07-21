@@ -17,6 +17,5 @@
 
 ## 备注
 
-- 本页基于 SiYuan v3.7.2-alpha.2 的 `kernel/cli/cmd/attr.go`。
 - 常见属性包括 `icon`、`title-img` 和 `tags`；`title-img` 需要 CSS `background-image:url(...)` 格式，不要只传裸资源路径。
 - `set` 会触发文件树刷新；重复传入同名 `--attr` 时后出现的值会覆盖前面的值。

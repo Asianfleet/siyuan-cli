@@ -14,5 +14,4 @@
 
 ## 备注
 
-- 本页基于 SiYuan v3.7.2-alpha.2 的 `kernel/cli/cmd/outline.go`。
 - 当前命令只读取标题树，不提供写入或重排大纲的子命令。

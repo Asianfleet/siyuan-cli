@@ -14,5 +14,5 @@
 
 ## 备注
 
-- `system` 当前在 v3.7.2-alpha.2 只有 `current-time` 一个子命令。
+- `system` 当前只有 `current-time` 一个子命令。
 - 输出时间按运行环境本地时区格式化为 RFC3339 字符串。

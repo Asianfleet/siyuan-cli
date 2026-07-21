@@ -17,6 +17,5 @@
 
 ## 备注
 
-- 本页基于 SiYuan v3.7.2-alpha.2 的 `kernel/cli/cmd/dailynote.go`。
 - `append` 和 `prepend` 会先调用日记创建逻辑，再把 Markdown 转成块 DOM 后写入。
 - 日记目标日期由运行时当前日期决定；批处理脚本中应确认执行环境时间。

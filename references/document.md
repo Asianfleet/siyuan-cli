@@ -23,6 +23,5 @@
 
 ## 备注
 
-- 本页基于 SiYuan v3.7.2-alpha.2 的 `kernel/cli/cmd/document.go`。
 - `list` 和 `move` 的路径解析规则一致：显式 `--path` 优先，其次用 `--hpath` 解析到内部路径，最后回退到 `/`。
 - 写入类命令均支持全局 `--dry-run`；正式执行前应确认文档 ID、目标笔记本 ID 和目标路径。

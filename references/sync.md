@@ -19,6 +19,5 @@
 
 ## 备注
 
-- 本页基于 SiYuan v3.7.2-alpha.2 的 `kernel/cli/cmd/sync.go`。
 - `sync` 读取当前 workspace 的同步配置；云端相关命令需要已配置可用的同步服务。
 - `sync status` 只查看状态，不触发同步。

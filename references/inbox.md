@@ -17,6 +17,5 @@
 
 ## 备注
 
-- 本页基于 SiYuan v3.7.2-alpha.2 的 `kernel/cli/cmd/inbox.go`。
 - `convert` 的 `--ids` 使用逗号分隔，源码会去空白并去重；空列表会报错。
 - `convert --path` 是目标笔记本内的人类可读路径，父路径必须已存在；不传或传 `/` 时写入笔记本根目录。

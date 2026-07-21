@@ -22,6 +22,5 @@
 
 ## 备注
 
-- 本页基于 SiYuan v3.7.2-alpha.2 的 `kernel/cli/cmd/export.go`。
 - `export` 类命令读取 workspace 数据；带 `--output` 时会在 workspace 外写出文件，目标文件已存在时按系统写文件行为覆盖。
 - `docx` 是本组唯一强制要求 `--output` 的导出子命令。

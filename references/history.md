@@ -20,6 +20,5 @@
 
 ## 备注
 
-- 本页基于 SiYuan v3.7.2-alpha.2 的 `kernel/cli/cmd/history.go`。
 - `--page` 小于 1 时按第 1 页处理。
 - `--type` 取值由源码说明为 `0=doc-name`、`1=doc-content`、`2=asset`、`3=doc-id`、`4=database`。

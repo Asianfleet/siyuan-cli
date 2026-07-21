@@ -27,6 +27,5 @@
 
 ## 备注
 
-- 本页基于 SiYuan v3.7.2-alpha.2 的 `kernel/cli/cmd/repo.go`。
 - `repo checkout`、`repo file rollback` 和 `repo purge` 都会改动 workspace 或其数据仓库，执行前应确认 `-w <workspace>` 指向正确目录。
 - `repo diff` 在源码中不按 `-f` 切换格式，固定输出缩进 JSON。
