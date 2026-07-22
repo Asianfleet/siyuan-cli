@@ -1,6 +1,6 @@
 # SiYuan CLI Skill
 
-[SiYuan](https://github.com/siyuan-note/siyuan) 命令行参考 skill，用于 Agent 需要通过 `siyuan` CLI 操作、检查、查询、导入、导出、同步或管理 SiYuan workspace 时提供离线命令指引。当前内容基于 SiYuan `v3.7.2`。
+[SiYuan](https://github.com/siyuan-note/siyuan) 命令行参考 skill，用于 Agent 需要通过 `siyuan` CLI 操作、检查、查询、导入、导出、同步或管理 SiYuan workspace 时提供离线命令指引。当前内容整理自 SiYuan [文档](https://github.com/siyuan-note/siyuan#-command-line-interface)和[源码](https://github.com/siyuan-note/siyuan/tree/master/kernel/cli/cmd)。
 
 ## 文件结构
 

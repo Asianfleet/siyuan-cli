@@ -5,8 +5,6 @@ description: "Use this skill whenever the user wants to operate, inspect, query,
 
 # Siyuan CLI
 
-本 Skill 基于 SiYuan `v3.7.2`。
-
 ## Preconditions
 
 - 检查 SiYuan 内核是否可从 PATH 调用。优先使用 `siyuan` 调用 CLI；如果 PATH 中没有可用命令，再定位安装目录下的 `resources/kernel/SiYuan-Kernel` 或 `SiYuan-Kernel.exe`。如果 PATH 和安装目录都无法定位内核，必须停下来向用户说明无法运行 CLI，并请用户提供安装目录或把内核加入 PATH。
@@ -14,17 +12,15 @@ description: "Use this skill whenever the user wants to operate, inspect, query,
 
 ### CLI Script
 
-用户显式指定 workspace 时的调用形式：
-
 ```powershell
-$workspace = "<workspace>"
-siyuan notebook list -w $workspace
+# 每次调用 siyuan 时直接通过 `-w` 指定 workspace：
+siyuan notebook list -w "<workspace>"
 ```
 
-`SIYUAN_WORKSPACE_PATH` 已设置时的调用形式：
-
 ```powershell
+# 如果在同一次 bash 调用中连续执行多条 siyuan 指令，可以先设置环境变量以减少重复：
 $env:SIYUAN_WORKSPACE_PATH = "<workspace>"
+siyuan notebook list
 siyuan search "keyword"
 ```
 
