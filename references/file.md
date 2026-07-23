@@ -22,7 +22,7 @@
 | `grep` | 用正则搜索文件内容 | `siyuan file grep --pattern <regex> --path <path> -w <workspace>` | `--pattern <regex>`：必填；`--path <path>`：必填，搜索根文件或目录；`--include <glob>`：可选，默认空，按文件名过滤，支持 `{a,b}` 展开；`--context <n>`：可选，默认 `0`；`--limit <n>`：可选，默认 `200` | 只读；表格模式输出 `Found N lines:` 和 `path:line: text`，上下文行使用 `path:line-: text`；`-f json` 输出匹配数组 | `--dry-run` 不改变行为，仍会实际搜索；`--pattern` 或 `--path` 缺失时退出码为 1；`--limit <= 0` 当前会重置为 `200`，帮助文本中的“unlimited”与实际行为不一致 |
 | `find` | 在指定路径下递归查找文件 | `siyuan file find <path> -w <workspace>` | `<path>`：必填，搜索根路径；`--include <glob>`：可选，默认空，按文件名过滤，支持 `{a,b}` 展开；`--limit <n>`：可选，默认 `200` | 只读；表格模式输出 `Found N files:` 和 workspace 相对路径列表；`-f json` 输出路径数组 | `--dry-run` 不改变行为，仍会实际遍历；只返回常规文件；会跳过隐藏目录以及 `.git`、`.svn`、`.hg`；`--limit <= 0` 当前会重置为 `200`，且达到上限时输出不标明结果已截断 |
 
-## 通用行为
+## 通用注意事项
 
 - 所有路径都会先规范化并限制在 workspace 内，`..` 等路径逃逸会被拒绝，退出码为 1。
 - `file` 不支持访问加密笔记本中的文件；命中加密笔记本路径会失败。

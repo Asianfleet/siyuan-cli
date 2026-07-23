@@ -25,7 +25,7 @@
 | `file open` | 预览快照文件内容 | `siyuan repo file open -w <workspace> --id <file-id>` | `--id`：快照文件 ID，必填；缺参校验优先于读取仓库 | 只读；输出 `Title: <title>`、分隔线和预览内容 | `--dry-run` 不短路，仍会读取仓库；不可直接展示的资源文件可能只返回路径或临时预览路径；未初始化数据仓库密钥时报错并打印 usage |
 | `file export` | 将快照文件导出到内核临时导出目录 | `siyuan repo file export -w <workspace> --id <file-id> --dry-run` | `--id`：快照文件 ID，必填；缺参校验优先于 `--dry-run` | 只读 workspace、写入临时导出文件；成功输出可访问的 `/export/...` 路径；`--dry-run` 输出计划文本 | `.sy` 文件会导出为 `.sy.zip`；加密笔记本锁定时会拒绝导出；未初始化数据仓库密钥时报错并打印 usage |
 
-
+## 通用注意事项
 
 - `--dry-run` 只有在 `create`、`tag`、`untag`、`checkout`、`purge`、`file rollback`、`file export`，以及带 `--output` 的 `file get` 中会提前返回计划文本。
 - `list`、`diff`、`search`、`file open` 和不带 `--output` 的 `file get` 会忽略 `--dry-run` 的预览意图，继续初始化并读取数据仓库。

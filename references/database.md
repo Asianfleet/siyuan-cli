@@ -25,7 +25,7 @@
 | `item remove` | 从数据库移除一批行 | `siyuan database item remove --av <av-id> --ids <item-id,item-id> -w <workspace> --dry-run` | `--av <av-id>`：必填，目标属性视图 ID；`--ids <ids>`：必填，逗号分隔的行 ID 列表，默认空，空白会被忽略 | 写入 workspace；成功输出 `ok`，`--dry-run` 输出计划移除行数 | `--dry-run` 只按逗号拆分并统计数量，不确认行是否存在；移除绑定块行会影响块上的数据库绑定 |
 | `item update` | 更新数据库单元格值 | `siyuan database item update --av <av-id> --key <key-id> --item <item-id> --value <json> -w <workspace> --dry-run` | `--av <av-id>`：必填，目标属性视图 ID；`--key <key-id>`：必填，字段 ID；`--item <item-id>`：必填，行 ID；`--value <json>`：必填，单元格值 JSON 对象，结构必须匹配字段类型，例如文本字段可用 `{"type":"text","text":{"content":"..."}}` | 写入 workspace；成功输出 `ok`，`--dry-run` 输出计划更新单元格 | `--value` 在 dry-run 前也会解析，非法 JSON 会报 `invalid JSON: ...` |
 
-
+## 通用注意事项
 
 - 写入类命令会修改 workspace；先用 `--dry-run` 只能确认部分必填参数和计划文本，不能当作完整存在性校验或权限校验。
 - 只读命令带 `--dry-run` 时输出与普通只读执行一致。

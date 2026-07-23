@@ -12,7 +12,7 @@
 |---|---|---|---|---|---|
 | `help [command]` | 输出指定命令路径或当前层级的帮助文本 | `siyuan help [command] -w <workspace>` | `<command>`：可选，命令路径；用于指定要查看的命令或子命令，默认空，省略时输出根命令帮助；命令路径按 Cobra 命令树逐级匹配。 | 只读；向 stdout 输出 Cobra 帮助文本 | `--dry-run` 对帮助输出无实际差异；命令不存在时返回 `Unknown help topic [...]`，并继续打印当前层级帮助 |
 
-
+## 通用注意事项
 
 - `help` 不读取或修改笔记数据，但仍会经过普通 CLI 初始化路径。
 - 也可以用任意命令的 `--help` 查看同级帮助，例如 `siyuan block get --help`。

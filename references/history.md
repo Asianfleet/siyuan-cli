@@ -18,7 +18,7 @@
 | `rollback` | 将文档回滚到指定历史版本 | `siyuan history rollback --path <history-path> -w <workspace> --dry-run` | `--path <history-path>`：必填，优先使用 `list` 或 `search` 返回的 `/history/.../*.sy` 路径 | 写入 workspace；`--dry-run` 输出将回滚的历史路径；正式执行成功输出 `ok` | 高风险写入操作，应先 dry-run；只支持可读取的历史文档路径；路径不存在、路径逃逸或不在历史目录下会报错 |
 | `clear` | 清空 workspace 的全部历史记录 | `siyuan history clear -w <workspace> --dry-run` | 无 | 写入 workspace；`--dry-run` 输出将清空全部历史；正式执行成功输出 `ok` | 全量删除历史，无法按笔记本、时间、类型或操作筛选；正式执行前应确认已备份或不再需要历史 |
 
-
+## 通用注意事项
 
 - `--type` 取值：`0=doc-name`、`1=doc-content`、`2=asset`、`3=doc-id`、`4=database`。
 - `--type 3` 使用精确文档 ID 查询；其他类型使用全文查询语义。

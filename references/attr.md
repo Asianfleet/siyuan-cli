@@ -15,7 +15,7 @@
 | `set` | 设置一个块的一个或多个属性 | `siyuan attr set --id <block-id> --attr <name=value> -w <workspace> --dry-run` | `--id <block-id>`：块 ID，必填，无默认值；`--attr <name=value>`：属性键值，必填，可重复，无默认值；同名属性以后出现的值为准 | 写入 workspace；成功输出 `ok`，`--dry-run` 输出计划操作；`-f json` 不改变成功输出格式 | `--attr` 必须包含 `=`，否则报 `invalid attr format`；属性名按小写形式校验并以小写保存，只能使用英文字母、数字和连字符并以英文字母开头；空值会删除该属性；真实写入找不到块时报错，`--dry-run` 不校验块是否存在或属性名是否合法 |
 | `batch-get` | 批量读取多个块的属性 | `siyuan attr batch-get --ids <block-id>,<block-id> -w <workspace>` | `--ids <ids>`：逗号分隔的块 ID 列表，必填，无默认值；每个 ID 两端空白会被修剪 | 只读；默认按块 ID 分段输出属性表，`-f json` 时返回 `{id: attrs}` 映射 | `--dry-run` 仍会真实读取；表格分段顺序不保证等同 `--ids` 输入顺序；找不到的 ID 会被跳过 |
 
-
+## 通用注意事项
 
 - 常见属性包括 `icon`、`title-img` 和 `tags`；`title-img` 需要 CSS `background-image:url(...)` 格式，不要只传裸资源路径。
 - `set` 会触发文件树刷新；设置 `icon`、`name` 等影响显示文本的属性时，还可能触发界面或引用显示刷新。

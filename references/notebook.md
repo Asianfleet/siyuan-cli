@@ -21,7 +21,7 @@
 | `set-icon` | 设置指定笔记本图标 | `siyuan notebook set-icon --id <notebook-id> --icon <icon> -w <workspace> --dry-run` | `--id`：必填，默认空，无替代来源；`--icon`：必填，默认空，无替代来源 | 写入 workspace；默认输出 `<id>\t<icon>`；`-f json` 返回 `{id, icon}`；`--dry-run` 输出拟设置动作 | 会先校验笔记本存在，因此 `--dry-run` 对不存在的 ID 也会失败；`--icon` 可用 emoji 码点、emoji 字符、自定义图片路径或动态图标 URL；包含点号的自定义图标名会被过滤 |
 | `random-icon` | 随机设置内置 emoji 图标 | `siyuan notebook random-icon --id <notebook-id> -w <workspace> --dry-run` | `--id`：可选，默认空；传入时只处理该笔记本，省略时处理全部笔记本 | 写入 workspace；默认输出 `ID / NAME / OLD / NEW`；`-f json` 返回变更数组；`--dry-run` 输出拟变更列表 | 省略 `--id` 的实际执行会更新全部笔记本图标；`--dry-run` 会提前选出预览的新图标，但正式执行会重新随机；不存在的 `--id` 会失败；没有可更新笔记本时失败 |
 
-
+## 通用注意事项
 
 - CLI 会拒绝直接操作加密笔记本；`random-icon` 省略 `--id` 时，如果 workspace 中存在加密笔记本，也会失败。
 - 图标命令会刷新文件树；随机图标只从内置 emoji 码点中选择，不使用用户自定义图片。

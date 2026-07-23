@@ -15,7 +15,7 @@
 | `append` | 确保今天的 Daily Note 存在，并在文档末尾追加块 | `siyuan dailynote append --notebook <notebook-id> --data <markdown> -w <workspace> --dry-run` | `--notebook <notebook-id>`：必填；没有默认值。`--data <markdown>`：Markdown 内容，优先级最高，空字符串按未提供处理。`--file <path>`：从文件读取内容；`-` 表示 stdin；未提供 `--data` 和 `--file` 时默认读取 stdin | `--dry-run` 输出计划；真实执行成功时输出 Daily Note 文档 ID，并写入追加块 | `--dry-run` 在读取内容来源前返回，不校验 `--data`、`--file` 或 stdin；真实执行时缺失文件会报文件打开错误且不会写入；空内容会写入空段落 |
 | `prepend` | 确保今天的 Daily Note 存在，并在文档开头前置块 | `siyuan dailynote prepend --notebook <notebook-id> --data <markdown> -w <workspace> --dry-run` | `--notebook <notebook-id>`：必填；没有默认值。`--data <markdown>`：Markdown 内容，优先级最高，空字符串按未提供处理。`--file <path>`：从文件读取内容；`-` 表示 stdin；未提供 `--data` 和 `--file` 时默认读取 stdin | `--dry-run` 输出计划；真实执行成功时输出 Daily Note 文档 ID，并写入前置块 | `--dry-run` 在读取内容来源前返回，不校验 `--data`、`--file` 或 stdin；真实执行时缺失文件会报文件打开错误且不会写入；空内容会写入空段落 |
 
-
+## 通用注意事项
 
 - `append` 和 `prepend` 会先确保当天 Daily Note 存在，再把 Markdown 写入为块。
 - Daily Note 的保存路径和模板取目标笔记本配置；如果笔记本未配置有效的 Daily Note 保存路径，真实执行会失败。

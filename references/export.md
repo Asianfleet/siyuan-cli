@@ -21,7 +21,7 @@
 | `md-zip` | 将指定文档导出为 Markdown zip 包 | `siyuan export md-zip --id <block-id> -w <workspace>` | `--id` 必填，文档块 ID；`--output <file>` 可选，预期指定后优先复制到该文件，默认打印临时导出路径 | 只读 workspace；省略 `--output` 时打印 `/export/<name>.md.zip`，实际文件位于当前 workspace 的 `temp/export/` 下 | 临时文件可能在下一次 CLI 初始化时被清理，需要立即使用；当前版本指定 `--output` 会因把 `/export/...` 当成本机路径读取而失败；缺少 `--id` 退出 1 并打印用法 |
 | `data` | 导出完整 workspace 数据备份 | `siyuan export data -w <workspace>` | `--output <file>` 可选，预期指定后优先复制到该文件，默认打印临时备份路径 | 读取并压缩当前 `-w <workspace>` 指向的完整 `data`；省略 `--output` 时打印 `/export/<workspace-name>-<timestamp>.zip`，实际文件位于当前 workspace 的 `temp/export/` 下 | 备份可能包含完整工作空间数据，注意明文外泄风险；临时文件可能在下一次 CLI 初始化时被清理；当前版本指定 `--output` 会因把 `/export/...` 当成本机路径读取而失败 |
 
-## 通用观察
+## 通用注意事项
 
 - `--output` 对 `md`、`html`、`preview` 是精确文件路径；对 `docx` 当前实际是目录；对 `sy`、`md-zip`、`data` 当前存在写出 bug。
 - `/export/...` 是 CLI 打印的下载式临时路径，不是可直接传给本机文件 API 的绝对路径；对应文件在 workspace 的 `temp/export/` 中，且不保证跨 CLI 进程保留。

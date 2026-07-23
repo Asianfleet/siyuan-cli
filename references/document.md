@@ -21,7 +21,7 @@
 | `info` | 读取文档统计信息 | `siyuan document info --id <document-id> -w <workspace>` | `--id`：必填，文档块 ID | 只读；表格输出 ID、RootID、Name、RefCount、SubFileCount，JSON 输出信息对象 | 适合查看引用数和子文档数量。`--dry-run` 对该只读命令没有特殊预览语义。 |
 | `search` | 按关键词搜索文档标题/路径 | `siyuan document search <keyword> -w <workspace>` | `<keyword>`：必填，关键词；只使用第一个位置参数 | 只读；表格输出 `NAME / ID / HPATH` 和命中数量，JSON 输出搜索结果数组 | 无关键词会由命令行参数校验报错。删除文档后，`search` 可能仍返回已删除文档的旧索引条目；需要用 `get` 或 `list` 确认文档是否仍存在。`--dry-run` 对该只读命令没有特殊预览语义。 |
 
-
+## 通用注意事项
 
 - 写入类命令的 `--dry-run` 只做必填参数校验和计划输出，不等同于完整目标 ID、目标笔记本或目标路径校验。
 - 文档路径参数存在两种语义：`list` 的 `--path` 指父目录路径；`move` 移入父文档时需要目标父文档的 `.sy` 路径。

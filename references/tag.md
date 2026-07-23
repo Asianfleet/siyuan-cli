@@ -15,7 +15,7 @@
 | `remove` | 删除指定标签 | `siyuan tag remove --label <label> -w <workspace> --dry-run` | `--label <label>`，默认空字符串 | 写入 workspace；成功时无输出；`--dry-run` 输出 `[dry-run] Would remove tag "<label>"` | 缺少 `--label` 返回错误；`--dry-run` 不校验标签是否存在；非 dry-run 删除不存在标签也返回成功 |
 | `rename` | 将旧标签名重命名为新标签名 | `siyuan tag rename --old <old-label> --new <new-label> -w <workspace> --dry-run` | `--old <old-label>`：必填，原标签名，默认空；`--new <new-label>`：必填，新标签名，默认空 | 写入 workspace；成功时无输出；`--dry-run` 输出 `[dry-run] Would rename tag "<old-label>" to "<new-label>"` | 缺少 `--old` 或 `--new` 返回错误；`--dry-run` 不校验标签是否存在或新标签格式；非 dry-run 重命名不存在标签也返回成功 |
 
-
+## 通用注意事项
 
 - 写入类操作会修改块内容或文档属性中的标签，适合先用 `list --keyword <label>` 确认目标标签。
 - `rename` 的非 dry-run 会清理新标签首尾 `/` 和空白；清理后为空或包含标签标记非法字符时返回错误。

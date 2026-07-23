@@ -8,12 +8,6 @@
 - 写入与移动：`insert`、`append`、`prepend`、`update`、`delete`、`move`
 - 批量查询：`batch-get`、`batch-kramdown`
 
-## 通用注意事项
-
-- `--dry-run` 只有写入类命令显式处理；对 `get`、`children`、`breadcrumb`、`dom`、`kramdown`、`stat`、`batch-get`、`batch-kramdown` 仍会正常读取并输出结果。
-- 写入类命令的内容来源优先级一致：`--data` 优先，其次 `--file <path>`；`--file -` 从 stdin 读取；两者都不提供时也会从 stdin 读取。`--dry-run` 只打印计划，不读取这些内容。
-- 写入类命令成功后通常不输出新块 ID；需要再用 `children`、`kramdown`、`search` 或其他查询命令定位新块。
-
 ## 子命令详述
 
 | 子命令 | 用途 | 语法 | 关键参数 | 输出/副作用 | 备注 |
@@ -32,3 +26,9 @@
 | `move` | 把块移动到新的父块下，可指定前一个兄弟块 | `siyuan block move --id <block-id> --parent <parent-id> -w <workspace> --dry-run` | `--id`：必填，待移动块 ID；`--parent`：必填，目标父块 ID；`--previous`：可选，目标位置的前一个兄弟块 ID | `--dry-run` 输出目标位置；真实移动成功输出 `ok` | 未提供 `--previous` 时会检查列表项嵌套和父块容器合法性；提供 `--previous` 时不会做这些检查 |
 | `batch-get` | 批量读取多个块对应的文档/root 信息 | `siyuan block batch-get --ids <id1,id2> -w <workspace>` | `--ids`：必填，逗号分隔；空白项会被忽略 | 默认表格输出 `ID / NAME / ROOTID / REFCOUNT`，未命中 ID 显示 `not found`；`-f json` 输出命中的信息数组 | 返回的是文档/root 信息，不等同于 `get` 的块级详情；`--ids` 为空或只包含空白项时报错 |
 | `batch-kramdown` | 批量导出多个块的 Kramdown 文本 | `siyuan block batch-kramdown --ids <id1,id2> -w <workspace>` | `--ids`：必填，逗号分隔；空白项会被忽略 | 默认按 ID 分段输出文本，未命中 ID 显示 `(not found)`；`-f json` 输出命中的 `{id: kramdown}` 映射 | 当前实现固定使用 `md` 模式，没有 `--mode` 参数；`--ids` 为空或只包含空白项时报错 |
+
+## 通用注意事项
+
+- `--dry-run` 只有写入类命令显式处理；对 `get`、`children`、`breadcrumb`、`dom`、`kramdown`、`stat`、`batch-get`、`batch-kramdown` 仍会正常读取并输出结果。
+- 写入类命令的内容来源优先级一致：`--data` 优先，其次 `--file <path>`；`--file -` 从 stdin 读取；两者都不提供时也会从 stdin 读取。`--dry-run` 只打印计划，不读取这些内容。
+- 写入类命令成功后通常不输出新块 ID；需要再用 `children`、`kramdown`、`search` 或其他查询命令定位新块。
