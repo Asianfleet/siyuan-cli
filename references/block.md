@@ -2,6 +2,10 @@
 
 `block` 是块级内容的读写、DOM/Kramdown 导出、统计、移动和批量查询入口。
 
+## 数据模型
+
+- 使用该命令时先读取 [data-models/block.md](data-models/block.md)。
+
 ## 子命令一览
 
 - 读取与导出：`get`、`children`、`breadcrumb`、`dom`、`kramdown`、`stat`

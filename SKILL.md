@@ -18,7 +18,7 @@ siyuan notebook list -w "<workspace>"
 ```
 
 ```powershell
-# 如果在同一次 bash 调用中连续执行多条 siyuan 指令，可以先设置环境变量以减少重复：
+# 如果在同一次 bash 调用中连续执行多条 siyuan 指令，且用户显式指定了工作空间时，可以先设置环境变量以减少重复：
 $env:SIYUAN_WORKSPACE_PATH = "<workspace>"
 siyuan notebook list
 siyuan search "keyword"
@@ -26,61 +26,67 @@ siyuan search "keyword"
 
 ### Commands
 
-| 分类 | 指令 | 描述 | 示例 | 参考 |
-|---|---|---|---|---|
-| Notebooks & Documents | `notebook` | 管理笔记本 | `siyuan notebook list -w <workspace>` | [notebook](references/notebook.md) |
-| Notebooks & Documents | `document` | 管理文档 | `siyuan document list --notebook <notebook-id> -w <workspace>` | [document](references/document.md) |
-| Notebooks & Documents | `dailynote` | 创建或写入今日 Daily Note | `siyuan dailynote create --notebook <notebook-id> -w <workspace>` | [dailynote](references/dailynote.md) |
-| Content | `block` | 读取、插入、更新、移动或删除块 | `siyuan block get --id <block-id> -w <workspace>` | [block](references/block.md) |
-| Content | `attr` | 读取或设置块属性 | `siyuan attr get --id <block-id> -w <workspace>` | [attr](references/attr.md) |
-| Content | `outline` | 读取文档标题大纲 | `siyuan outline get --id <document-id> -w <workspace>` | [outline](references/outline.md) |
-| Metadata | `tag` | 管理标签 | `siyuan tag list -w <workspace>` | [tag](references/tag.md) |
-| Metadata | `bookmark` | 管理书签 | `siyuan bookmark list -w <workspace>` | [bookmark](references/bookmark.md) |
-| Metadata | `template` | 搜索、读取、渲染或创建模板片段 | `siyuan template search "" -w <workspace>` | [template](references/template.md) |
-| Queries | `search` | 全文、查询语法、SQL、正则、语义或资源文件内容搜索 | `siyuan search "keyword" -w <workspace>` | [search](references/search.md) |
-| Queries | `sql` | 执行 SQL 查询 | `siyuan sql "select * from blocks limit 5" -w <workspace>` | [sql](references/sql.md) |
-| References | `ref` | 查询反链、提及并刷新引用 | `siyuan ref backlinks --id <block-id> -w <workspace>` | [ref](references/ref.md) |
-| Import/Export | `export` | 导出 Markdown、HTML、Word、`.sy.zip` 或完整数据备份 | `siyuan export md --id <document-id> -w <workspace>` | [export](references/export.md) |
-| Import/Export | `import` | 导入 Markdown、`.sy.zip` 或数据备份 | `siyuan import md --file <path> --notebook <notebook-id> -w <workspace> --dry-run` | [import](references/import.md) |
-| Import/Export | `inbox` | 管理云端收集箱剪藏 | `siyuan inbox list -w <workspace>` | [inbox](references/inbox.md) |
-| Data Management | `repo` | 管理数据快照和快照文件 | `siyuan repo list -w <workspace>` | [repo](references/repo.md) |
-| Data Management | `history` | 查询、读取、回滚或清理数据历史 | `siyuan history list -w <workspace>` | [history](references/history.md) |
-| Data Management | `sync` | 执行云端同步、上传、下载或查看同步状态 | `siyuan sync status -w <workspace>` | [sync](references/sync.md) |
-| Utilities | `asset` | 上传、查看、清理或统计资源文件 | `siyuan asset unused -w <workspace>` | [asset](references/asset.md) |
-| Utilities | `file` | 在 workspace 内列出、读取、写入、查找、复制或删除文件 | `siyuan file find data -w <workspace>` | [file](references/file.md) |
-| Database | `database` | 管理数据库，也就是属性视图 | `siyuan database search "<name>" -w <workspace>` | [database](references/database.md) |
-| Server | `serve` | 启动 kernel HTTP server | `siyuan serve --workspace <workspace> --port 6806` | [serve](references/serve.md) |
-| Workspace & System | `workspace` | 列出或检查 SiYuan workspace | `siyuan workspace info -w <workspace>` | [workspace](references/workspace.md) |
-| Workspace & System | `system` | 输出系统信息 | `siyuan system current-time -w <workspace>` | [system](references/system.md) |
-| Workspace & System | `completion` | 生成 shell 自动补全脚本 | `siyuan completion powershell -w <workspace>` | [completion](references/completion.md) |
-| Workspace & System | `help` | 查看命令帮助 | `siyuan help block -w <workspace>` | [help](references/help.md) |
+| 分类                  | 指令         | 描述                                                  | 示例                                                                               | 用法参考                               |
+| --------------------- | ------------ | ----------------------------------------------------- | ---------------------------------------------------------------------------------- | -------------------------------------- |
+| Notebooks & Documents | `notebook`   | 管理笔记本                                            | `siyuan notebook list -w <workspace>`                                              | [notebook](references/notebook.md)     |
+| Notebooks & Documents | `document`   | 管理文档                                              | `siyuan document list --notebook <notebook-id> -w <workspace>`                     | [document](references/document.md)     |
+| Notebooks & Documents | `dailynote`  | 创建或写入今日 Daily Note                             | `siyuan dailynote create --notebook <notebook-id> -w <workspace>`                  | [dailynote](references/dailynote.md)   |
+| Content               | `block`      | 读取、插入、更新、移动或删除块                        | `siyuan block get --id <block-id> -w <workspace>`                                  | [block](references/block.md)           |
+| Content               | `attr`       | 读取或设置块属性                                      | `siyuan attr get --id <block-id> -w <workspace>`                                   | [attr](references/attr.md)             |
+| Content               | `outline`    | 读取文档标题大纲                                      | `siyuan outline get --id <document-id> -w <workspace>`                             | [outline](references/outline.md)       |
+| Metadata              | `tag`        | 管理标签                                              | `siyuan tag list -w <workspace>`                                                   | [tag](references/tag.md)               |
+| Metadata              | `bookmark`   | 管理书签                                              | `siyuan bookmark list -w <workspace>`                                              | [bookmark](references/bookmark.md)     |
+| Metadata              | `template`   | 搜索、读取、渲染或创建模板片段                        | `siyuan template search "" -w <workspace>`                                         | [template](references/template.md)     |
+| Queries               | `search`     | 全文、查询语法、SQL、正则、语义或资源文件内容搜索     | `siyuan search "keyword" -w <workspace>`                                           | [search](references/search.md)         |
+| Queries               | `sql`        | 执行 SQL 查询                                         | `siyuan sql "select * from blocks limit 5" -w <workspace>`                         | [sql](references/sql.md)               |
+| References            | `ref`        | 查询反链、提及并刷新引用                              | `siyuan ref backlinks --id <block-id> -w <workspace>`                              | [ref](references/ref.md)               |
+| Import/Export         | `export`     | 导出 Markdown、HTML、Word、`.sy.zip` 或完整数据备份   | `siyuan export md --id <document-id> -w <workspace>`                               | [export](references/export.md)         |
+| Import/Export         | `import`     | 导入 Markdown、`.sy.zip` 或数据备份                   | `siyuan import md --file <path> --notebook <notebook-id> -w <workspace> --dry-run` | [import](references/import.md)         |
+| Import/Export         | `inbox`      | 管理云端收集箱剪藏                                    | `siyuan inbox list -w <workspace>`                                                 | [inbox](references/inbox.md)           |
+| Data Management       | `repo`       | 管理数据快照和快照文件                                | `siyuan repo list -w <workspace>`                                                  | [repo](references/repo.md)             |
+| Data Management       | `history`    | 查询、读取、回滚或清理数据历史                        | `siyuan history list -w <workspace>`                                               | [history](references/history.md)       |
+| Data Management       | `sync`       | 执行云端同步、上传、下载或查看同步状态                | `siyuan sync status -w <workspace>`                                                | [sync](references/sync.md)             |
+| Utilities             | `asset`      | 上传、查看、清理或统计资源文件                        | `siyuan asset unused -w <workspace>`                                               | [asset](references/asset.md)           |
+| Utilities             | `file`       | 在 workspace 内列出、读取、写入、查找、复制或删除文件 | `siyuan file find data -w <workspace>`                                             | [file](references/file.md)             |
+| Database              | `database`   | 管理数据库，也就是属性视图                            | `siyuan database search "<name>" -w <workspace>`                                   | [database](references/database.md)     |
+| Server                | `serve`      | 启动 kernel HTTP server                               | `siyuan serve --workspace <workspace> --port 6806`                                 | [serve](references/serve.md)           |
+| Workspace & System    | `workspace`  | 列出或检查 SiYuan workspace                           | `siyuan workspace info -w <workspace>`                                             | [workspace](references/workspace.md)   |
+| Workspace & System    | `system`     | 输出系统信息                                          | `siyuan system current-time -w <workspace>`                                        | [system](references/system.md)         |
+| Workspace & System    | `completion` | 生成 shell 自动补全脚本                               | `siyuan completion powershell -w <workspace>`                                      | [completion](references/completion.md) |
+| Workspace & System    | `help`       | 查看命令帮助                                          | `siyuan help block -w <workspace>`                                                 | [help](references/help.md)             |
 
 ### Global Flags
 
 不带参数的全局 flag：
 
-| Flag | 说明 |
-|---|---|
-| `--dry-run` | 预览命令会做什么，不实际修改数据；它通常只打印计划操作，不保证校验目标 ID、父块合法性或文件是否存在 |
-| `-h`, `--help` | 查看当前命令或子命令帮助；本 Skill 覆盖常用离线参考，但遇到版本不一致时以目标版本源码为准 |
-| `--version` | 输出 CLI 版本 |
+| Flag           | 说明                                                                                                |
+| -------------- | --------------------------------------------------------------------------------------------------- |
+| `--dry-run`    | 预览命令会做什么，不实际修改数据；它通常只打印计划操作，不保证校验目标 ID、父块合法性或文件是否存在 |
+| `-h`, `--help` | 查看当前命令或子命令帮助；本 Skill 覆盖常用离线参考，但遇到版本不一致时以目标版本源码为准           |
+| `--version`    | 输出 CLI 版本                                                                                       |
 
 ### Common Options
 
 带参数的通用 flag：
 
-| Flag | 默认值 | 说明 |
-|---|---|---|
-| `-w`, `--workspace <path>` | 环境变量 `SIYUAN_WORKSPACE_PATH` | 用户显式指定 workspace 时传入；如果用户未指定且环境变量未设置，停下来询问，不使用猜测的默认路径 |
-| `-f`, `--format <table\|json>` | `table` | 输出格式默认保留 `table`；只有任务需要结构化解析、批处理或程序消费时才使用 `json` |
-| `-v`, `--log-level <level>` | CLI 单次命令默认为 `warn` | 日志级别：`off`、`trace`、`debug`、`info`、`warn`、`error`、`fatal` |
+| Flag                           | 默认值                           | 说明                                                                                            |
+| ------------------------------ | -------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `-w`, `--workspace <path>`     | 环境变量 `SIYUAN_WORKSPACE_PATH` | 用户显式指定 workspace 时传入；如果用户未指定且环境变量未设置，停下来询问，不使用猜测的默认路径 |
+| `-f`, `--format <table\|json>` | `table`                          | 输出格式默认保留 `table`；只有任务需要结构化解析、批处理或程序消费时才使用 `json`               |
+| `-v`, `--log-level <level>`    | CLI 单次命令默认为 `warn`        | 日志级别：`off`、`trace`、`debug`、`info`、`warn`、`error`、`fatal`                             |
 
 ## Notes
 
-- 默认使用 CLI 的表格输出；只有当任务需要结构化解析、批处理或把结果继续交给程序处理时，才加 `-f json`。
+### General
+
+- 默认使用 CLI 的表格格式输出；只有当任务需要结构化解析、批处理或把结果继续交给程序处理时，才加 `-f json`。
 - 修改类命令包括但不限于 `notebook create/remove/rename`、`document create/remove/rename/move/duplicate`、`block insert/update/delete/move`、`attr set`、`import`、`repo checkout`、`history rollback/clear`、`sync push/pull`、`file write/delete/rename/copy`，先用 `--dry-run`；注意 `--dry-run` 通常只打印计划操作，不等同于完整校验目标 ID、父块合法性或文件是否存在。
 - 如果命令报 `appearance files not found`，说明 CLI 没有从正确的 SiYuan 工作目录启动，改用安装目录中的 kernel 二进制或设置正确的工作目录。
 - CLI 可直接访问 workspace 数据，不要求先启动 HTTP server。
-- `help`、`system` 等看似只读的命令也会触发普通 CLI 初始化；用户未指定 workspace 且 `SIYUAN_WORKSPACE_PATH` 未设置时，停下来询问。
-- 除 `workspace` 子命令外，大多数命令会初始化 workspace 和数据库；workspace 路径错误会导致命令失败或读到错误数据。
-- `file` 命令只能访问 workspace 内路径，思源会阻止路径逃逸。
+
+### Block, Database and SQL
+
+- 块 (Block)：思源的基本数据单元。段落、标题、列表、文档等一切内容都是块，每个块有全局唯一 ID。块是思源底层核心概念，所有数据最终都以块的形式存储于 `blocks` 表中。
+- 数据库/属性视图 (Database)：官方名称为”属性视图“，常被叫做“数据库”。以表格视图呈现，支持文本、数字、单选、日期、关联、汇总等多种列类型，适合信息汇总和分类管理。每条记录可以是纯文本，也可以引用已有块。
+- SQL：思源运行时维护一个 SQLite 数据库，用于存储思源块的数据。SQL 查询为用户提供直通底层数据的灵活访问能力。可以查询 `blocks`、`refs`、`attributes` 等表，只支持 `SELECT` 语句。
+- **三者关系**：块是最基本的原子内容单元，管“内容”；数据库（属性视图）是在块之上构建的结构化数据管理工具，面向信息汇总和可视化，管“结构化信息“；SQL 是最底层、最灵活的数据查询手段，可以跨表、跨类型检索任意数据，管“内查”。简言之：日常编辑靠块，汇总管理靠数据库，灵活检索靠 SQL。

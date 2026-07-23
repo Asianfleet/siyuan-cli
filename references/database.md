@@ -2,6 +2,12 @@
 
 `database` 是属性视图数据库的搜索、读取、渲染、字段、行和未使用数据库清理入口。属性视图 ID 在命令参数中写作 `--av`。
 
+## 数据模型
+
+- 需要理解 `--av`、`--view`、`--key`、`--item`、`--block`、`--value` 时，先读 [data-models/attribute-view.md](data-models/attribute-view.md)。
+- 需要把 `render -f json` 输出映射回行、列、单元格时，先读同一份文档。
+- 需要区分绑定块行和独立行时，先看同一份文档里的 `Value.BlockID` / `Value.Block.ID` 说明。
+
 ## 子命令一览
 
 - 数据库读取：`search`、`get`、`render`、`keys`
@@ -23,7 +29,7 @@
 | `clean` | 清理未使用数据库，可指定单个数据库 ID | `siyuan database clean [--av <av-id>] -w <workspace> [--dry-run]` | `--av <av-id>`：可选，指定单个未使用数据库 ID；默认空，省略时清理全部未使用数据库 | 写入 workspace；指定 `--av` 时回显该 ID，未指定时输出清理数量；`--dry-run` 输出计划清理动作 | 不带 `--av` 风险较高，会清理全部未使用数据库；指定 `--av` 的输出不等同于读取确认，清理后可用 `get` 验证是否已不存在 |
 | `item add` | 向数据库添加行 | `siyuan database item add --av <av-id> [--block <block-id>] [--content <text>] [--view <view-id>] [--group <group-id>] [--previous <item-id>] [--detached] [--ignore-default-fill] -w <workspace> [--dry-run]` | `--av <av-id>`：必填，目标属性视图 ID；`--block <block-id>`：条件必填，绑定块 ID；未传 `--detached` 时必须指定；`--content <text>`：可选，主字段文本；默认空；`--view <view-id>`：可选，目标视图 ID；默认空；`--group <group-id>`：可选，目标分组 ID；默认空；`--previous <item-id>`：可选，前一个行 ID；默认空；`--detached`：可选，创建不绑定块的行；默认 `false`；`--ignore-default-fill`：可选，忽略默认填充值；默认 `false` | 写入 workspace；成功输出 `ok`，`--dry-run` 输出计划添加行 | 帮助文本写着 `--block` 可自动生成，但实际非 detached 行缺少 `--block` 会报错；添加成功不输出新行 ID，需要再用 `get` 或 `render -f json` 定位 |
 | `item remove` | 从数据库移除一批行 | `siyuan database item remove --av <av-id> --ids <item-id,item-id> -w <workspace> [--dry-run]` | `--av <av-id>`：必填，目标属性视图 ID；`--ids <item-id,item-id>`：必填，逗号分隔的行 ID 列表；空白会被忽略 | 写入 workspace；成功输出 `ok`，`--dry-run` 输出计划移除行数 | `--dry-run` 只按逗号拆分并统计数量，不确认行是否存在；移除绑定块行会影响块上的数据库绑定 |
-| `item update` | 更新数据库单元格值 | `siyuan database item update --av <av-id> --key <key-id> --item <item-id> --value <json> -w <workspace> [--dry-run]` | `--av <av-id>`：必填，目标属性视图 ID；`--key <key-id>`：必填，字段 ID；`--item <item-id>`：必填，行 ID；`--value <json>`：必填，单元格值 JSON 对象，结构必须匹配字段类型，例如文本字段可用 `{"type":"text","text":{"content":"..."}}` | 写入 workspace；成功输出 `ok`，`--dry-run` 输出计划更新单元格 | `--value` 在 dry-run 前也会解析，非法 JSON 会报 `invalid JSON: ...` |
+| `item update` | 更新数据库单元格值 | `siyuan database item update --av <av-id> --key <key-id> --item <item-id> --value <json> -w <workspace> [--dry-run]` | `--av <av-id>`：必填，目标属性视图 ID；`--key <key-id>`：必填，字段 ID；`--item <item-id>`：必填，行 ID；`--value <json>`：必填，单元格值 JSON 对象，结构必须匹配字段类型，例如文本字段可用 `{"text":{"content":"..."}}` | 写入 workspace；成功输出 `ok`，`--dry-run` 输出计划更新单元格 | `--value` 在 dry-run 前也会解析，非法 JSON 会报 `invalid JSON: ...`；更多值结构见数据模型文档 |
 
 ## 通用注意事项
 
