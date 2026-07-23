@@ -75,20 +75,6 @@ siyuan search "keyword"
 | `-f`, `--format <table\|json>` | `table` | 输出格式默认保留 `table`；只有任务需要结构化解析、批处理或程序消费时才使用 `json` |
 | `-v`, `--log-level <level>` | CLI 单次命令默认为 `warn` | 日志级别：`off`、`trace`、`debug`、`info`、`warn`、`error`、`fatal` |
 
-`serve` 还有专用启动选项：
-
-| Flag | 默认值 | 说明 |
-|---|---|---|
-| `--wd <path>` | 自动解析 | SiYuan 工作目录，通常是包含 `appearance/` 的资源目录 |
-| `--port <port>` | `0` | HTTP server 端口；Docker 场景通常使用固定端口 |
-| `--readonly <bool>` | `false` | 只读模式 |
-| `--accessAuthCode <code>` | 空 | 访问授权码；Docker 部署通常必须设置 |
-| `--lang <lang>` | 空 | 语言，如 `en`、`zh-CN`、`zh-TW` |
-| `--mode <dev\|prod>` | `prod` | 运行模式 |
-| `--ssl` | `false` | 启用 HTTPS 和 WSS |
-| `--attach-ui` | `false` | 将 kernel 生命周期绑定到桌面 UI 进程 |
-| `--safe-mode` | `false` | 安全模式启动 |
-
 ## Notes
 
 - 默认使用 CLI 的表格输出；只有当任务需要结构化解析、批处理或把结果继续交给程序处理时，才加 `-f json`。
@@ -97,4 +83,4 @@ siyuan search "keyword"
 - CLI 可直接访问 workspace 数据，不要求先启动 HTTP server。
 - `help`、`system` 等看似只读的命令也会触发普通 CLI 初始化；用户未指定 workspace 且 `SIYUAN_WORKSPACE_PATH` 未设置时，停下来询问。
 - 除 `workspace` 子命令外，大多数命令会初始化 workspace 和数据库；workspace 路径错误会导致命令失败或读到错误数据。
-- `file` 命令只能访问 workspace 内路径，源码会阻止路径逃逸。
+- `file` 命令只能访问 workspace 内路径，思源会阻止路径逃逸。
