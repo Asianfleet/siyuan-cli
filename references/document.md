@@ -1,6 +1,6 @@
 # document
 
-`document` 是文档树查询、创建、读取、删除、重命名、移动、复制、信息查看和标题搜索入口。
+`document` 用于查看、创建、读取、删除、重命名、移动、复制文档，并按标题/路径搜索文档。
 
 ## 子命令一览
 
@@ -11,20 +11,18 @@
 
 | 子命令 | 用途 | 语法 | 关键参数 | 输出/副作用 | 备注 |
 |---|---|---|---|---|---|
-| `list` | 列出指定笔记本和路径下的文档 | `siyuan document list --notebook <notebook-id> -w <workspace>` | `--notebook`、`--path`、`--hpath` | 只读；默认输出 `ID / NAME / PATH / SIZE / COUNT / MTIME`，`-f json` 时返回文档树文件数组 | `--path` 优先于 `--hpath`；两者都不传时读取根路径 `/` |
-| `create` | 创建新文档 | `siyuan document create --notebook <notebook-id> --title <title> -w <workspace> --dry-run` | `--notebook`、`--title`、`--path`、`--markdown` | 写入 workspace；成功输出新文档 ID，`--dry-run` 只打印计划操作 | 会修改 workspace，建议先用 `--dry-run`；`--path` 默认 `/`，`--markdown` 可提供初始 Markdown 内容 |
-| `get` | 读取文档块基础信息 | `siyuan document get --id <document-id> -w <workspace>` | `--id` | 只读；默认输出 ID、标题、类型、笔记本、HPath、创建/更新时间和内容预览，`-f json` 时返回块对象 | 目标必须是可加载的文档块 ID，否则报 `document not found`。**≤v3.7.3 已知 bug**：表格格式 Title 行为空（`-f json` 正常）; `Created`/`Updated` 在表格和 JSON 中均为空，计划 v3.7.4 修复 |
-| `remove` | 删除指定文档 | `siyuan document remove --id <document-id> -w <workspace> --dry-run` | `--id` | 写入 workspace；成功输出被删除的文档 ID，`--dry-run` 只打印计划操作 | 会修改 workspace，建议先用 `--dry-run`；删除后会刷新文件树和父文档信息 |
-| `rename` | 重命名文档 | `siyuan document rename --id <document-id> --title <title> -w <workspace> --dry-run` | `--id`、`--title` | 写入 workspace；成功输出文档 ID，`--dry-run` 只打印计划操作 | 会修改 workspace，建议先用 `--dry-run`；`--id` 或 `--title` 为空会报错 |
-| `move` | 将文档移动到目标笔记本和路径 | `siyuan document move --id <document-id> --notebook <notebook-id> -w <workspace> --dry-run` | `--id`、`--notebook`、`--path`、`--hpath` | 写入 workspace；成功输出文档 ID，`--dry-run` 只打印计划操作 | 会修改 workspace，建议先用 `--dry-run`；`--path` 优先于 `--hpath`，两者都不传时移动到目标笔记本根路径 |
-| `duplicate` | 复制文档 | `siyuan document duplicate --id <document-id> -w <workspace> --dry-run` | `--id` | 写入 workspace；成功输出原文档树 ID，`--dry-run` 只打印计划操作 | 会修改 workspace，建议先用 `--dry-run`；源码调用复制后刷新文件树，但输出值来自原文档树 ID |
-| `info` | 读取文档统计信息 | `siyuan document info --id <document-id> -w <workspace>` | `--id` | 只读；默认输出 ID、RootID、Name、RefCount、SubFileCount，`-f json` 时返回信息对象 | 适合快速查看引用数和子文档数量 |
-| `search` | 按关键词搜索文档标题/路径信息 | `siyuan document search <keyword> -w <workspace>` | `<keyword>` | 只读；默认输出 `NAME / ID / HPATH` 和命中数量，`-f json` 时返回搜索结果数组 | 需要至少 1 个位置参数；源码只取第一个参数作为关键词 |
+| `list` | 列出指定笔记本和父路径下的文档 | `siyuan document list --notebook <notebook-id> -w <workspace>` | `--notebook`：必填，笔记本 ID；`--path`：内部父路径，默认 `/`，优先级高于 `--hpath`；`--hpath`：人类可读父路径，仅在 `--path` 为空时尝试解析，解析不到会回退到 `/` | 只读；表格输出 `ID / NAME / PATH / SIZE / COUNT / MTIME`，JSON 输出文档树文件数组 | `--dry-run` 对该只读命令没有特殊预览语义，仍会执行查询。 |
+| `create` | 创建新文档 | `siyuan document create --notebook <notebook-id> --title <title> -w <workspace> --dry-run` | `--notebook`：必填，目标笔记本 ID；`--title`：必填，新文档标题；`--path`：父目录内部路径，默认 `/`；`--markdown`：可选，初始 Markdown 内容，默认空 | 写入 workspace；成功输出新文档 ID；`--dry-run` 只打印将创建的标题和笔记本 | `--dry-run` 在检查必填参数后直接返回，不校验父路径是否存在。 |
+| `get` | 读取文档块基础信息 | `siyuan document get --id <document-id> -w <workspace>` | `--id`：必填，文档块 ID | 只读；表格输出 ID、Title、Type、Box、HPath、Created、Updated 和内容预览，JSON 输出块对象 | 目标不存在时报 `document not found: <id>`。当前表格输出的 `Title`、`Created`、`Updated` 可能为空；标题可从 `Content` 或 JSON 的 `content`/`ial.title` 观察。`--dry-run` 对该只读命令没有特殊预览语义。 |
+| `remove` | 删除指定文档 | `siyuan document remove --id <document-id> -w <workspace> --dry-run` | `--id`：必填，文档块 ID | 写入 workspace；成功输出被删除文档 ID；`--dry-run` 只打印将删除的 ID | `--dry-run` 在检查 `--id` 后直接返回，不校验文档是否存在。删除后 `get` 和 `list` 可立即反映删除；标题搜索可能仍短暂返回旧索引结果。 |
+| `rename` | 重命名文档 | `siyuan document rename --id <document-id> --title <title> -w <workspace> --dry-run` | `--id`：必填，文档块 ID；`--title`：必填，新标题 | 写入 workspace；成功输出文档 ID；`--dry-run` 只打印将重命名的 ID 和新标题 | `--dry-run` 在检查必填参数后直接返回，不校验文档是否存在。 |
+| `move` | 移动文档到目标笔记本或父文档 | `siyuan document move --id <document-id> --notebook <notebook-id> -w <workspace> --dry-run` | `--id`：必填，要移动的文档块 ID；`--notebook`：必填，目标笔记本 ID；`--path`：目标内部路径，默认 `/`，优先级高于 `--hpath`；`--hpath`：目标人类可读路径，仅在 `--path` 为空时尝试解析 | 写入 workspace；成功输出被移动文档 ID；`--dry-run` 只打印将移动的 ID 和目标笔记本 | 移到根路径使用 `/`。移到父文档下时，`--path` 需要传目标父文档的 `.sy` 路径，如 `/<parent-id>.sy`；传 `/<parent-id>/` 会报 `block not found`。当前 `--hpath` 解析到目录路径，子文档移动场景可能同样失败。 |
+| `duplicate` | 复制文档 | `siyuan document duplicate --id <document-id> -w <workspace> --dry-run` | `--id`：必填，要复制的文档块 ID | 写入 workspace；成功输出新复制文档 ID；`--dry-run` 只打印将复制的 ID | 复制件标题会追加 `(Duplicated <时间>)` 后缀。`--dry-run` 在检查 `--id` 后直接返回，不校验文档是否存在。 |
+| `info` | 读取文档统计信息 | `siyuan document info --id <document-id> -w <workspace>` | `--id`：必填，文档块 ID | 只读；表格输出 ID、RootID、Name、RefCount、SubFileCount，JSON 输出信息对象 | 适合查看引用数和子文档数量。`--dry-run` 对该只读命令没有特殊预览语义。 |
+| `search` | 按关键词搜索文档标题/路径 | `siyuan document search <keyword> -w <workspace>` | `<keyword>`：必填，关键词；只使用第一个位置参数 | 只读；表格输出 `NAME / ID / HPATH` 和命中数量，JSON 输出搜索结果数组 | 无关键词会由命令行参数校验报错。删除文档后，`search` 可能仍返回已删除文档的旧索引条目；需要用 `get` 或 `list` 确认文档是否仍存在。`--dry-run` 对该只读命令没有特殊预览语义。 |
 
-## 备注
 
-- `list` 和 `move` 的路径解析规则一致：显式 `--path` 优先，其次用 `--hpath` 解析到内部路径，最后回退到 `/`。
-- 写入类命令均支持全局 `--dry-run`；正式执行前应确认文档 ID、目标笔记本 ID 和目标路径。
-- **≤v3.7.3 `get` 已知 bug**：
-  - 表格格式 `Title` 行为空——`block.Name`（IAL `name`）对文档节点通常为空，实际标题在 `block.Content`（IAL `title`）中；`-f json` 无此问题。
-  - `Created` / `Updated` 始终为空——`fromSQLBlock()` 漏映射了 `sql.Block` 的这两个字段。计划 v3.7.4 修复。
+
+- 写入类命令的 `--dry-run` 只做必填参数校验和计划输出，不等同于完整目标 ID、目标笔记本或目标路径校验。
+- 文档路径参数存在两种语义：`list` 的 `--path` 指父目录路径；`move` 移入父文档时需要目标父文档的 `.sy` 路径。
+- 当前 CLI 会拒绝加密笔记本相关文档操作，报错形式为不支持加密笔记本或加密笔记本文件。
