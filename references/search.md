@@ -4,13 +4,13 @@
 
 ## 子命令一览
 
-- 直接调用：`search <query>`
+- 直接调用：不带子命令
 
 ## 子命令详述
 
 | 子命令 | 用途 | 语法 | 关键参数 | 输出/副作用 | 备注 |
 |---|---|---|---|---|---|
-| `search <query>` | 搜索块内容、语义结果、资源文件全文索引，或按资源路径读取已索引全文 | `siyuan search <query> -w <workspace>` | `<query>`：必填；默认作为块搜索查询，`--asset` 时作为资源内容查询，`--get-asset` 时作为资源路径。`--asset`：切换到资源内容搜索，默认 `false`，优先级高于 `--get-asset`。`--get-asset`：按 `assets/...` 路径读取单个已索引资源全文，默认 `false`。`--ext`：资源模式扩展名过滤，可重复，默认不过滤，按索引值精确匹配，通常带点如 `.md`。`--notebook`：块模式笔记本 ID 过滤，可重复，默认不过滤。`--path`：块模式文档路径前缀过滤，可重复，默认不过滤。`--type`：块模式块类型过滤，可重复；未传时使用工作空间搜索配置，传入后覆盖类型集合。`--subtype`：块模式子类型过滤，可重复；标题用 `h1`-`h6`，列表用 `o`/`u`/`t`，只在对应父类型启用时生效。`--method`：搜索方法，默认 `0`；块模式 `0=keyword`、`1=query-syntax`、`2=sql`、`3=regex`、`4=semantic`，资源模式使用 `0`-`3`，传 `4` 时按关键字搜索处理。`--order-by`：排序，默认 `0`；块模式 `0=type`、`1=created-asc`、`2=created-desc`、`3=updated-asc`、`4=updated-desc`、`5=content`、`6=relevance-asc`、`7=relevance-desc`；资源模式 `0=relevance-desc`、`1=relevance-asc`、`2=updated-asc`、`3=updated-desc`。`--page`：页码，默认 `1`，小于 `1` 按 `1`。`--page-size`：每页数量，默认 `32`，小于 `1` 按 `32`。`--group-by`：块模式分组，默认 `0`，`1` 按文档分组 | 只读；块模式默认输出 `ID / TYPE / NAME / HPATH` 表格和匹配统计；资源搜索默认输出 `ID / EXT / NAME / SIZE / PATH / CONTENT` 表格；按资源路径读取默认输出资源元数据和完整索引内容；`-f json` 时返回结构化结果 | 无子命令；`--asset` 会忽略块过滤参数；`--get-asset` 不搜索内容，只读取已索引路径 |
+| `（默认）` | 搜索块内容、语义结果、资源文件全文索引，或按资源路径读取已索引全文 | `siyuan search <query> [--asset] [--get-asset] [--ext <ext>]... [--notebook <notebook-id>]... [--path <path>]... [--type <type>]... [--subtype <subtype>]... [--method <n>] [--order-by <n>] [--page <n>] [--page-size <n>] [--group-by <n>] -w <workspace>` | `<query>`：必填，查询内容；默认作为块搜索查询，`--asset` 时作为资源内容查询，`--get-asset` 时作为资源路径。`--asset`：可选，切换到资源内容搜索；默认 `false`，优先级高于 `--get-asset`。`--get-asset`：可选，按 `assets/...` 路径读取单个已索引资源全文；默认 `false`。`--ext <ext>`：可选，可重复，资源模式扩展名过滤；默认不过滤，按索引值精确匹配，通常带点如 `.md`。`--notebook <notebook-id>`：可选，可重复，块模式笔记本 ID 过滤；默认不过滤。`--path <path>`：可选，可重复，块模式文档路径前缀过滤；默认不过滤。`--type <type>`：可选，可重复，块模式块类型过滤；未传时使用工作空间搜索配置，传入后覆盖类型集合。`--subtype <subtype>`：可选，可重复，块模式子类型过滤；标题用 `h1`-`h6`，列表用 `o`/`u`/`t`，只在对应父类型启用时生效。`--method <n>`：可选，搜索方法；默认 `0`；块模式 `0=keyword`、`1=query-syntax`、`2=sql`、`3=regex`、`4=semantic`，资源模式使用 `0`-`3`，传 `4` 时按关键字搜索处理。`--order-by <n>`：可选，排序；默认 `0`；块模式 `0=type`、`1=created-asc`、`2=created-desc`、`3=updated-asc`、`4=updated-desc`、`5=content`、`6=relevance-asc`、`7=relevance-desc`；资源模式 `0=relevance-desc`、`1=relevance-asc`、`2=updated-asc`、`3=updated-desc`。`--page <n>`：可选，页码；默认 `1`，小于 `1` 按 `1`。`--page-size <n>`：可选，每页数量；默认 `32`，小于 `1` 按 `32`。`--group-by <n>`：可选，块模式分组；默认 `0`，`1` 按文档分组 | 只读；块模式默认输出 `ID / TYPE / NAME / HPATH` 表格和匹配统计；资源搜索默认输出 `ID / EXT / NAME / SIZE / PATH / CONTENT` 表格；按资源路径读取默认输出资源元数据和完整索引内容；`-f json` 时返回结构化结果 | 无子命令；`--asset` 会忽略块过滤参数；`--get-asset` 不搜索内容，只读取已索引路径 |
 
 ## 通用注意事项
 

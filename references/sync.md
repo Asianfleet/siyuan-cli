@@ -12,9 +12,9 @@
 
 | 子命令 | 用途 | 语法 | 关键参数 | 输出/副作用 | 备注 |
 |---|---|---|---|---|---|
-| `（默认）` | 按当前同步配置执行一次云端同步 | `siyuan sync -w <workspace> --dry-run` | 无 | `--dry-run` 输出 `[dry-run] Would sync data with cloud`；正式执行会尝试按配置同步并输出 `ok` | 可能读写 workspace 和云端数据；全手动模式下即使带 `--dry-run` 也会报错，必须改用 `push` 或 `pull`；同步关闭时正式执行仍输出 `ok`，不代表实际同步发生 |
-| `push` | 将本地数据上传到云端 | `siyuan sync push -w <workspace> --dry-run` | 无 | `--dry-run` 输出 `[dry-run] Would upload to cloud`；正式执行会尝试上传并输出 `ok` | 可能写入云端同步数据；同步关闭时正式执行仍输出 `ok`，不代表实际上传发生 |
-| `pull` | 从云端下载数据到本地 | `siyuan sync pull -w <workspace> --dry-run` | 无 | `--dry-run` 输出 `[dry-run] Would download from cloud`；正式执行会尝试下载并输出 `ok` | 可能写入本地 workspace；同步关闭时正式执行仍输出 `ok`，不代表实际下载发生 |
+| `（默认）` | 按当前同步配置执行一次云端同步 | `siyuan sync -w <workspace> [--dry-run]` | 无 | `--dry-run` 输出 `[dry-run] Would sync data with cloud`；正式执行会尝试按配置同步并输出 `ok` | 可能读写 workspace 和云端数据；全手动模式下即使带 `--dry-run` 也会报错，必须改用 `push` 或 `pull`；同步关闭时正式执行仍输出 `ok`，不代表实际同步发生 |
+| `push` | 将本地数据上传到云端 | `siyuan sync push -w <workspace> [--dry-run]` | 无 | `--dry-run` 输出 `[dry-run] Would upload to cloud`；正式执行会尝试上传并输出 `ok` | 可能写入云端同步数据；同步关闭时正式执行仍输出 `ok`，不代表实际上传发生 |
+| `pull` | 从云端下载数据到本地 | `siyuan sync pull -w <workspace> [--dry-run]` | 无 | `--dry-run` 输出 `[dry-run] Would download from cloud`；正式执行会尝试下载并输出 `ok` | 可能写入本地 workspace；同步关闭时正式执行仍输出 `ok`，不代表实际下载发生 |
 | `status` | 查看当前同步配置和状态 | `siyuan sync status -w <workspace>` | 无 | 默认输出 `Enabled`、`Mode`、`Provider`、`Cloud`、`Perception`、`Interval`，有最近同步或统计信息时还会输出 `Synced`、`Stat` | 只查看状态，不触发同步；`--dry-run` 对 `status` 没有可见影响；`Mode` 显示为 `auto`、`manual`、`full-manual` 或 `unknown(n)` |
 
 ## 通用注意事项

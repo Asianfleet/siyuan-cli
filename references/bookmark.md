@@ -13,8 +13,8 @@
 |---|---|---|---|---|---|
 | `list` | 列出书签及命中数量 | `siyuan bookmark list -w <workspace>` | 无 | 只读；默认输出 `NAME / COUNT` 表格，`-f json` 时返回含 `name`、`blocks`、`type`、`depth`、`count` 的书签集合 | `--dry-run` 对该只读命令无特殊效果 |
 | `labels` | 列出全部书签标签 | `siyuan bookmark labels -w <workspace>` | 无 | 只读；默认输出 `LABEL` 表格，`-f json` 时返回标签字符串数组 | 只返回标签名，不返回每个标签的数量；`--dry-run` 对该只读命令无特殊效果 |
-| `remove` | 删除指定书签标签 | `siyuan bookmark remove --label <label> -w <workspace> --dry-run` | `--label <label>`：必填，目标书签标签，默认空 | 写入 workspace；`--dry-run` 输出 `[dry-run] Would remove bookmark "<label>"`；真实执行成功时无标准输出 | 缺少 `--label` 会报错；不存在的标签按成功无变化处理；真实执行会移除所有匹配标签的书签属性 |
-| `rename` | 将旧书签标签重命名为新标签 | `siyuan bookmark rename --old <old> --new <new> -w <workspace> --dry-run` | `--old <old>`：必填，原书签标签，默认空；`--new <new>`：必填，新书签标签，默认空，真实执行前会 trim 并校验 Markdown 标记符 | 写入 workspace；`--dry-run` 输出 `[dry-run] Would rename bookmark "<old>" to "<new>"`；真实执行成功时无标准输出 | 缺少 `--old` 或 `--new` 会报错；不存在的旧标签按成功无变化处理；已知 bug：`--dry-run` 不校验新标签的 Markdown 标记符或 trim 后为空 |
+| `remove` | 删除指定书签标签 | `siyuan bookmark remove --label <label> -w <workspace> [--dry-run]` | `--label <label>`：必填，目标书签标签；无有效默认值 | 写入 workspace；`--dry-run` 输出 `[dry-run] Would remove bookmark "<label>"`；真实执行成功时无标准输出 | 缺少 `--label` 会报错；不存在的标签按成功无变化处理；真实执行会移除所有匹配标签的书签属性 |
+| `rename` | 将旧书签标签重命名为新标签 | `siyuan bookmark rename --old <old> --new <new> -w <workspace> [--dry-run]` | `--old <old>`：必填，原书签标签；无有效默认值；`--new <new>`：必填，新书签标签；无有效默认值，真实执行前会 trim 并校验 Markdown 标记符 | 写入 workspace；`--dry-run` 输出 `[dry-run] Would rename bookmark "<old>" to "<new>"`；真实执行成功时无标准输出 | 缺少 `--old` 或 `--new` 会报错；不存在的旧标签按成功无变化处理；已知 bug：`--dry-run` 不校验新标签的 Markdown 标记符或 trim 后为空 |
 
 ## 通用注意事项
 
